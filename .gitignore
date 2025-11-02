@@ -26,3 +26,7 @@ docker-compose.yml
 
 #personal config
 .env
+
+# TypeScript build output
+dist/
+*.tsbuildinfo

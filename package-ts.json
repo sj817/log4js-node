@@ -17,13 +17,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "pnpm build && node dist/test.js",
-    "example": "pnpm build && node dist/example.js",
-    "pm2:example": "pnpm build && node dist/pm2-example.js",
-    "pm2:start": "pnpm build && pm2 start ecosystem.config.cjs",
-    "pm2:stop": "pm2 stop ecosystem.config.cjs",
-    "pm2:reload": "pm2 reload ecosystem.config.cjs",
-    "pm2:logs": "pm2 logs ts-logger-app",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "clean": "rm -rf dist"
