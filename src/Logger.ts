@@ -50,14 +50,7 @@ export class Logger {
     }
 
     const error = args.find((item) => item instanceof Error) as Error | undefined;
-    const event = new LoggingEvent(
-      this.category,
-      level,
-      args,
-      this.context,
-      undefined,
-      error
-    );
+    const event = new LoggingEvent(this.category, level, args, this.context, undefined, error);
 
     // Send to all appenders
     for (const appender of this.appenders) {

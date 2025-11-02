@@ -33,7 +33,7 @@ function colorize(str: string, style?: string): string {
  */
 export function basicLayout(): Layout {
   return (event: LoggingEvent) => {
-    return event.data.map(d => String(d)).join(' ');
+    return event.data.map((d) => String(d)).join(' ');
   };
 }
 
@@ -43,7 +43,7 @@ export function basicLayout(): Layout {
 export function coloredLayout(): Layout {
   return (event: LoggingEvent) => {
     const level = colorize(`[${event.level.toString()}]`, event.level.colour);
-    const message = event.data.map(d => String(d)).join(' ');
+    const message = event.data.map((d) => String(d)).join(' ');
     return `${level} ${message}`;
   };
 }
@@ -55,22 +55,22 @@ export function coloredLayout(): Layout {
 export function patternLayout(pattern: string = '%d{ISO8601} [%p] %c - %m'): Layout {
   return (event: LoggingEvent) => {
     let result = pattern;
-    
+
     // Replace date
     result = result.replace(/%d(?:\{([^}]+)\})?/g, () => {
       return event.startTime.toISOString();
     });
-    
+
     // Replace level
     result = result.replace(/%p/g, event.level.toString());
-    
+
     // Replace category
     result = result.replace(/%c/g, event.categoryName);
-    
+
     // Replace message
-    const message = event.data.map(d => String(d)).join(' ');
+    const message = event.data.map((d) => String(d)).join(' ');
     result = result.replace(/%m/g, message);
-    
+
     return result + '\n';
   };
 }

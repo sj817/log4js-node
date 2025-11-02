@@ -80,11 +80,12 @@ export class LoggingEvent {
         parsed.error
       );
     } catch (e) {
-      return new LoggingEvent(
-        'ts-logger',
-        Level.ERROR,
-        ['Unable to parse log:', serialised, 'because:', e]
-      );
+      return new LoggingEvent('ts-logger', Level.ERROR, [
+        'Unable to parse log:',
+        serialised,
+        'because:',
+        e,
+      ]);
     }
   }
 }

@@ -17,10 +17,13 @@ export interface CategoryConfig {
  * Configuration for the logger
  */
 export interface LoggerConfig {
-  appenders: Record<string, {
-    type: string;
-    [key: string]: unknown;
-  }>;
+  appenders: Record<
+    string,
+    {
+      type: string;
+      [key: string]: unknown;
+    }
+  >;
   categories: Record<string, CategoryConfig>;
 }
 
@@ -100,11 +103,11 @@ class LoggerRegistry {
       // Auto-configure with default settings
       this.configure({
         appenders: {
-          console: { type: 'console' }
+          console: { type: 'console' },
         },
         categories: {
-          default: { appenders: ['console'], level: 'INFO' }
-        }
+          default: { appenders: ['console'], level: 'INFO' },
+        },
       });
     }
 
@@ -113,9 +116,8 @@ class LoggerRegistry {
     }
 
     // Get category config or use default
-    const categoryConfig = this.config?.categories[category] || 
-                          this.config?.categories.default ||
-                          { appenders: ['console'], level: 'INFO' };
+    const categoryConfig = this.config?.categories[category] ||
+      this.config?.categories.default || { appenders: ['console'], level: 'INFO' };
 
     // Get appenders for this category
     const appenders: Appender[] = [];
@@ -129,7 +131,7 @@ class LoggerRegistry {
     // Create logger
     const level = Level.getLevel(categoryConfig.level) || Level.INFO;
     const logger = new Logger(category, level, appenders);
-    
+
     this.loggers.set(category, logger);
     return logger;
   }
@@ -146,10 +148,10 @@ class LoggerRegistry {
    */
   shutdown(callback: (error?: Error) => void = () => {}): void {
     this.configured = false;
-    
+
     const appendersToShutdown = Array.from(this.appenders.values());
-    const shutdownFunctions = appendersToShutdown.filter(a => a.shutdown);
-    
+    const shutdownFunctions = appendersToShutdown.filter((a) => a.shutdown);
+
     if (shutdownFunctions.length === 0) {
       callback();
       return;

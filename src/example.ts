@@ -14,20 +14,20 @@ logger1.error('This is an error');
 console.log('\n=== Example 2: Custom Configuration ===');
 configure({
   appenders: {
-    console: { 
+    console: {
       type: 'console',
-      layout: { type: 'colored' }
+      layout: { type: 'colored' },
     },
     file: {
       type: 'file',
       filename: './logs/app.log',
-      layout: { type: 'pattern', pattern: '%d{ISO8601} [%p] %c - %m' }
-    }
+      layout: { type: 'pattern', pattern: '%d{ISO8601} [%p] %c - %m' },
+    },
   },
   categories: {
     default: { appenders: ['console'], level: 'DEBUG' },
-    app: { appenders: ['console', 'file'], level: 'INFO' }
-  }
+    app: { appenders: ['console', 'file'], level: 'INFO' },
+  },
 });
 
 const logger2 = getLogger('app');

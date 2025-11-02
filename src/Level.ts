@@ -26,21 +26,19 @@ export class Level {
 
     // Handle string case
     const levelStr = String(sArg).toUpperCase();
-    return Level[levelStr as keyof typeof Level] as Level || defaultLevel;
+    return (Level[levelStr as keyof typeof Level] as Level) || defaultLevel;
   }
 
   /**
    * Check if this level is less than or equal to another level
    */
   isLessThanOrEqualTo(otherLevel: string | Level): boolean {
-    const other = typeof otherLevel === 'string' 
-      ? Level.getLevel(otherLevel) 
-      : otherLevel;
-    
+    const other = typeof otherLevel === 'string' ? Level.getLevel(otherLevel) : otherLevel;
+
     if (!other) {
       return false;
     }
-    
+
     return this.level <= other.level;
   }
 
@@ -48,14 +46,12 @@ export class Level {
    * Check if this level is greater than or equal to another level
    */
   isGreaterThanOrEqualTo(otherLevel: string | Level): boolean {
-    const other = typeof otherLevel === 'string' 
-      ? Level.getLevel(otherLevel) 
-      : otherLevel;
-    
+    const other = typeof otherLevel === 'string' ? Level.getLevel(otherLevel) : otherLevel;
+
     if (!other) {
       return false;
     }
-    
+
     return this.level >= other.level;
   }
 
@@ -63,14 +59,12 @@ export class Level {
    * Check if this level is equal to another level
    */
   isEqualTo(otherLevel: string | Level): boolean {
-    const other = typeof otherLevel === 'string' 
-      ? Level.getLevel(otherLevel) 
-      : otherLevel;
-    
+    const other = typeof otherLevel === 'string' ? Level.getLevel(otherLevel) : otherLevel;
+
     if (!other) {
       return false;
     }
-    
+
     return this.level === other.level;
   }
 

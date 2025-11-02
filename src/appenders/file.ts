@@ -18,8 +18,9 @@ export interface FileAppenderConfig {
  * File appender - writes logs to a file
  */
 export function fileAppender(config: FileAppenderConfig): Appender {
-  const { filename, layout = (event) => `${event.level.toString()} ${event.data.join(' ')}\n` } = config;
-  
+  const { filename, layout = (event) => `${event.level.toString()} ${event.data.join(' ')}\n` } =
+    config;
+
   // Ensure directory exists
   const dir = dirname(filename);
   mkdir(dir, { recursive: true }).catch(() => {
