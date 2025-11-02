@@ -50,7 +50,7 @@ export function coloredLayout(): Layout {
 
 /**
  * Pattern layout - customizable format
- * Supports tokens: %d{DATE}, %p (level), %c (category), %m (message)
+ * Supports tokens: %d{DATE}, %p (level), %c (category), %m (message), %pid (process ID), %pm_id (PM2 process ID)
  */
 export function patternLayout(pattern: string = '%d{ISO8601} [%p] %c - %m'): Layout {
   return (event: LoggingEvent) => {
@@ -60,6 +60,10 @@ export function patternLayout(pattern: string = '%d{ISO8601} [%p] %c - %m'): Lay
     result = result.replace(/%d(?:\{([^}]+)\})?/g, () => {
       return event.startTime.toISOString();
     });
+
+    // Replace process IDs first (before %p to avoid conflicts)
+    result = result.replace(/%pm_id/g, process.env.pm_id || String(event.pid));
+    result = result.replace(/%pid/g, String(event.pid));
 
     // Replace level
     result = result.replace(/%p/g, event.level.toString());
